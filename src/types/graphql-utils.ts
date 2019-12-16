@@ -1,4 +1,5 @@
 import { Redis } from 'ioredis';
+import { Connection } from 'typeorm';
 
 export interface ResolverMap {
     [key: string]: {
