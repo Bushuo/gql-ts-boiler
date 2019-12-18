@@ -1,13 +1,16 @@
 import { Redis } from 'ioredis';
-import { Connection } from 'typeorm';
 
 export interface ResolverMap {
     [key: string]: {
         [key: string]: (
             parent: any,
             args: any,
-            context: { redis: Redis; url: string },
+            context: { redis: Redis; session: Session; url: string },
             info: any
         ) => any;
     };
+}
+
+export interface Session {
+    userId?: string;
 }
