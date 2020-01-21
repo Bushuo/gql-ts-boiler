@@ -8,6 +8,7 @@ import { createTypeormConnection } from './utils/createTypeormConnection';
 import { redis } from './redis';
 import { confirmEmail } from './routes/confirmEmail';
 import { genSchema } from './utils/generateSchema';
+import { REDIS_SESSION_PREFIX } from './constants';
 
 const RedisStore = connectRedis(session);
 
@@ -18,14 +19,18 @@ export const startServer = async () => {
         schema: genSchema(),
         context: ({ request }) => ({
             redis,
+            url: request.protocol + '://' + request.get('host'),
             session: request.session,
-            url: request.protocol + '://' + request.get('host')
+            req: request
         })
     });
 
     server.express.use(
         session({
-            store: new RedisStore({ client: redis }),
+            store: new RedisStore({
+                client: redis,
+                prefix: REDIS_SESSION_PREFIX
+            }),
             name: 'qid',
             secret: process.env.SESSION_SECRET as string,
             resave: false,
