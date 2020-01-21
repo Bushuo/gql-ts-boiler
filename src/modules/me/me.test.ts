@@ -1,8 +1,7 @@
-// axios works well with cookies
-import axios from 'axios';
 import { Connection } from 'typeorm';
 import { createTypeormConnection } from '../../utils/createTypeormConnection';
 import { User } from '../../entity/User';
+import { TestClient } from '../../utils/testclient';
 
 let userId: string;
 const email = 'authMiddleware@test.com';
@@ -22,55 +21,22 @@ afterAll(async () => {
     if (conn) conn.close();
 });
 
-const loginMutation = (e: string, p: string) => `
-    mutation {
-        login(email: "${e}", password: "${p}") {
-            path
-            message
-        }
-    }
-`;
-
-const meQuery = ` 
-{
-    me {
-        id
-        email
-    }        
-}
-`;
-
 describe('me', () => {
     test('return null if no cookie', async () => {
-        const response = await axios.post(process.env.TEST_HOST as string, {
-            query: meQuery
-        });
+        const client = new TestClient(process.env.TEST_HOST as string);
 
-        expect(response.data.data.me).toBeNull();
+        const response = await client.me();
+
+        expect(response.data.me).toBeNull();
     });
 
     test('get current user', async () => {
-        await axios.post(
-            process.env.TEST_HOST as string,
-            {
-                query: loginMutation(email, password)
-            },
-            {
-                withCredentials: true
-            }
-        );
+        const client = new TestClient(process.env.TEST_HOST as string);
 
-        const response = await axios.post(
-            process.env.TEST_HOST as string,
-            {
-                query: meQuery
-            },
-            {
-                withCredentials: true
-            }
-        );
+        await client.login(email, password);
+        const response = await client.me();
 
-        expect(response.data.data).toEqual({
+        expect(response.data).toEqual({
             me: {
                 id: userId,
                 email
