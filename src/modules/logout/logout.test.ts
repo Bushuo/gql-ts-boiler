@@ -4,10 +4,10 @@ import { Connection } from 'typeorm';
 import { createTypeormConnection } from '../../utils/createTypeormConnection';
 import { User } from '../../entity/User';
 
-let userId: string;
-const email = 'authMiddleware@test.com';
+const email = 'logout@test.com';
 const password = 'akjbuaoe878324';
 let conn: Connection;
+let userId: string;
 beforeAll(async () => {
     conn = await createTypeormConnection();
     const user = await User.create({
@@ -31,6 +31,12 @@ const loginMutation = (e: string, p: string) => `
     }
 `;
 
+const logoutMutation = `
+mutation {
+    logout
+}
+`;
+
 const meQuery = ` 
 {
     me {
@@ -40,16 +46,8 @@ const meQuery = `
 }
 `;
 
-describe('me', () => {
-    test('return null if no cookie', async () => {
-        const response = await axios.post(process.env.TEST_HOST as string, {
-            query: meQuery
-        });
-
-        expect(response.data.data.me).toBeNull();
-    });
-
-    test('get current user', async () => {
+describe('logout', () => {
+    test('test logging out a user', async () => {
         await axios.post(
             process.env.TEST_HOST as string,
             {
@@ -60,7 +58,7 @@ describe('me', () => {
             }
         );
 
-        const response = await axios.post(
+        const response1 = await axios.post(
             process.env.TEST_HOST as string,
             {
                 query: meQuery
@@ -70,11 +68,33 @@ describe('me', () => {
             }
         );
 
-        expect(response.data.data).toEqual({
+        expect(response1.data.data).toEqual({
             me: {
                 id: userId,
                 email
             }
         });
+
+        await axios.post(
+            process.env.TEST_HOST as string,
+            {
+                query: logoutMutation
+            },
+            {
+                withCredentials: true
+            }
+        );
+
+        const response2 = await axios.post(
+            process.env.TEST_HOST as string,
+            {
+                query: meQuery
+            },
+            {
+                withCredentials: true
+            }
+        );
+
+        expect(response2.data.data.me).toBeNull();
     });
 });
