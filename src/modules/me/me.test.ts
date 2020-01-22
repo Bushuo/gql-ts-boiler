@@ -1,7 +1,7 @@
 import { Connection } from 'typeorm';
 import { createTypeormConnection } from '../../utils/createTypeormConnection';
 import { User } from '../../entity/User';
-import { TestClient } from '../../utils/testclient';
+import { TestClient } from '../../utils/testClient';
 
 let userId: string;
 const email = 'authMiddleware@test.com';
@@ -10,8 +10,8 @@ let conn: Connection;
 beforeAll(async () => {
     conn = await createTypeormConnection();
     const user = await User.create({
-        email: email,
-        password: password,
+        email,
+        password,
         confirmed: true
     }).save();
     userId = user.id;

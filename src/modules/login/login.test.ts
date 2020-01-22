@@ -2,7 +2,7 @@ import { createTypeormConnection } from '../../utils/createTypeormConnection';
 import { unconfirmedEmail, invalidLogin } from './errorMessages';
 import { User } from '../../entity/User';
 import { Connection } from 'typeorm';
-import { TestClient } from '../../utils/testclient';
+import { TestClient } from '../../utils/testClient';
 
 const email = 'login@test.com';
 const password = 'asdbf&dvjb2123';

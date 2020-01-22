@@ -8,7 +8,7 @@ import {
 } from './errorMessages';
 import { createTypeormConnection } from '../../utils/createTypeormConnection';
 import { Connection } from 'typeorm';
-import { TestClient } from '../../utils/testclient';
+import { TestClient } from '../../utils/testClient';
 
 const email = 'register@test.test';
 const password = 'asdbf&dvjb2123';

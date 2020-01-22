@@ -3,7 +3,7 @@ import * as bcrypt from 'bcryptjs';
 
 import { ResolverMap } from '../../types/graphql-utils';
 import { createForgotPasswordLink } from '../../utils/createForgotPasswordLink';
-import { forgotPasswordLockAccount } from '../../utils/forgotPasswordlockAccount';
+import { forgotPasswordLockAccount } from '../../utils/forgotPasswordLockAccount';
 import { User } from '../../entity/User';
 import {
     userNotFoundError,

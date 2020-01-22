@@ -1,10 +1,10 @@
 import { Connection } from 'typeorm';
 import { createTypeormConnection } from '../../utils/createTypeormConnection';
 import { User } from '../../entity/User';
-import { TestClient } from '../../utils/testclient';
+import { TestClient } from '../../utils/testClient';
 import { createForgotPasswordLink } from '../../utils/createForgotPasswordLink';
 import * as Redis from 'ioredis';
-import { forgotPasswordLockAccount } from '../../utils/forgotPasswordlockAccount';
+import { forgotPasswordLockAccount } from '../../utils/forgotPasswordLockAccount';
 import { forgotPasswordLockedError } from '../login/errorMessages';
 import { passwordNotLongEnough } from '../register/errorMessages';
 import { forgotPasswordExpiredKeyError } from './errorMessages';

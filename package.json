@@ -49,7 +49,7 @@
     "scripts": {
         "start": "NODE_ENV=development nodemon --exec ts-node --files src/index.ts",
         "start-win": "set NODE_ENV=development&&nodemon --exec ts-node --files src/index.ts",
-        "test": "TS_NODE_FILES=true NODE_ENV=test jest --watch",
+        "test": "TS_NODE_FILES=true NODE_ENV=test jest --watch --runInBand",
         "test-win": "set TS_NODE_FILES=true&&set NODE_ENV=test&&jest --watch --runInBand",
         "gen-schema-types": "TS_NODE_FILES=true ts-node src/scripts/createTypes.ts",
         "gen-schema-types-win": "ts-node --files src/scripts/createTypes.ts"
