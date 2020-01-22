@@ -2,7 +2,7 @@
 
 #dummy query
 type Query {
-    dummy2: String
+    dummy3: String
 }
 
 type Mutation {

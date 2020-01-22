@@ -4,6 +4,9 @@ import * as path from 'path';
 import { genSchema } from '../utils/generateSchema';
 
 const typescriptTypes = generateNamespace('GQL', genSchema());
+
+console.log(typescriptTypes);
+
 fs.writeFile(
     path.join(__dirname, '../types/schema.d.ts'),
     typescriptTypes,

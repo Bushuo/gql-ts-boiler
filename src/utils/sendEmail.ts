@@ -1,4 +1,6 @@
 import * as SparkPost from 'sparkpost';
+import 'dotenv/config';
+
 const client = new SparkPost(process.env.SPARKPOST_API_KEY);
 
 export const sendEmail = async (recipient: string, url: string) => {

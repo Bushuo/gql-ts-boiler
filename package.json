@@ -52,7 +52,7 @@
         "test": "TS_NODE_FILES=true NODE_ENV=test jest --watch",
         "test-win": "set TS_NODE_FILES=true&&set NODE_ENV=test&&jest --watch --runInBand",
         "gen-schema-types": "TS_NODE_FILES=true ts-node src/scripts/createTypes.ts",
-        "gen-schema-types-win": "set TS_NODE_FILES=true ts-node src/scripts/createTypes.ts"
+        "gen-schema-types-win": "ts-node --files src/scripts/createTypes.ts"
     },
     "jest": {
         "transform": {
