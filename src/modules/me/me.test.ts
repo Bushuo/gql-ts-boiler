@@ -18,7 +18,9 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-    if (conn) conn.close();
+    if (conn) {
+        conn.close();
+    }
 });
 
 describe('me', () => {

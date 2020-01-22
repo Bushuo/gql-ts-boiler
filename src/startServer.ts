@@ -3,6 +3,8 @@ import 'dotenv/config';
 
 import * as session from 'express-session';
 import * as connectRedis from 'connect-redis';
+import * as RateLimit from 'express-rate-limit';
+import * as RateLimitRedisStore from 'rate-limit-redis';
 import { GraphQLServer } from 'graphql-yoga';
 import { createTypeormConnection } from './utils/createTypeormConnection';
 import { redis } from './redis';
@@ -10,6 +12,7 @@ import { confirmEmail } from './routes/confirmEmail';
 import { genSchema } from './utils/generateSchema';
 import { REDIS_SESSION_PREFIX } from './constants';
 
+// tslint:disable-next-line: variable-name
 const RedisStore = connectRedis(session);
 
 export const startServer = async () => {
@@ -24,6 +27,14 @@ export const startServer = async () => {
             req: request
         })
     });
+
+    server.express.use(
+        new RateLimit({
+            store: new RateLimitRedisStore({ client: redis }),
+            windowMs: 15 * 60 * 1000, // 15 minutes
+            max: 100
+        })
+    );
 
     server.express.use(
         session({
