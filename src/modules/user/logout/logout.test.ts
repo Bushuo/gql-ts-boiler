@@ -5,10 +5,12 @@ import { User } from '../../../entity/User';
 import { TestClient } from '../../../utils/testClient';
 import { createTestConnection } from '../../../testUtils/createTestConnection';
 
-const email = faker.internet.email();
-const password = faker.internet.password();
 let conn: Connection;
 let userId: string;
+faker.seed(Date.now() * Math.random());
+
+const email = faker.internet.email();
+const password = faker.internet.password();
 beforeAll(async () => {
     conn = await createTestConnection();
     const user = await User.create({

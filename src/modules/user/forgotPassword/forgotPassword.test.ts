@@ -11,10 +11,12 @@ import { passwordNotLongEnough } from '../register/errorMessages';
 import { forgotPasswordExpiredKeyError } from './errorMessages';
 import { createTestConnection } from '../../../testUtils/createTestConnection';
 
+let conn: Connection;
+faker.seed(Date.now() * Math.random());
+
 const email = faker.internet.email();
 const password = faker.internet.password();
 const newPassword = faker.internet.password();
-let conn: Connection;
 const redis = new Redis();
 let userId: string;
 beforeAll(async () => {

@@ -9,9 +9,10 @@ import { Connection } from 'typeorm';
 import { createTestConnection } from '../../../testUtils/createTestConnection';
 
 let userId: string;
-const redis = new Redis();
-
 let conn: Connection;
+const redis = new Redis();
+faker.seed(Date.now() * Math.random());
+
 beforeAll(async () => {
     conn = await createTestConnection();
     const user = await User.create({
