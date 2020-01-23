@@ -1,21 +1,23 @@
-import { User } from '../../entity/User';
+import * as faker from 'faker';
 import * as bcrypt from 'bcryptjs';
+
+import { User } from '../../entity/User';
 import {
     duplicateEmail,
     emailNotLongEnough,
     invalidEmail,
     passwordNotLongEnough
 } from './errorMessages';
-import { createTypeormConnection } from '../../utils/createTypeormConnection';
 import { Connection } from 'typeorm';
 import { TestClient } from '../../utils/testClient';
+import { createTestConnection } from '../../testUtils/createTestConnection';
 
-const email = 'register@test.test';
-const password = 'asdbf&dvjb2123';
+const email = faker.internet.email();
+const password = faker.internet.password();
 
 let conn: Connection;
 beforeAll(async () => {
-    conn = await createTypeormConnection();
+    conn = await createTestConnection();
 });
 afterAll(async () => {
     conn.close();

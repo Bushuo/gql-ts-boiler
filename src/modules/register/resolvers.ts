@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { ResolverMap } from '../../types/graphql-utils';
 import { User } from '../../entity/User';
 import { formatYupError } from '../../utils/formatYupError';
-import { createEmailConfirmationLink } from '../../utils/createEmailConfirmationLink';
+import { createEmailConfirmationLink } from './createEmailConfirmationLink';
 import {
     duplicateEmail,
     emailNotLongEnough,

@@ -7,6 +7,7 @@
         "@types/connect-redis": "0.0.13",
         "@types/express-rate-limit": "^3.3.3",
         "@types/express-session": "^1.15.16",
+        "@types/faker": "^4.1.9",
         "@types/ioredis": "^4.14.2",
         "@types/jest": "^24.0.23",
         "@types/node": "^12.12.17",
@@ -33,6 +34,7 @@
         "express": "^4.17.1",
         "express-rate-limit": "^5.0.0",
         "express-session": "^1.17.0",
+        "faker": "^4.1.0",
         "graphql": "^14.5.8",
         "graphql-import": "^0.7.1",
         "graphql-request": "^1.8.2",
@@ -52,8 +54,8 @@
     "scripts": {
         "start": "NODE_ENV=development nodemon --exec ts-node --files src/index.ts",
         "start-win": "set NODE_ENV=development&&nodemon --exec ts-node --files src/index.ts",
-        "test": "TS_NODE_FILES=true NODE_ENV=test jest --watch --runInBand",
-        "test-win": "set TS_NODE_FILES=true&&set NODE_ENV=test&&jest --watch --runInBand",
+        "test": "TS_NODE_FILES=true NODE_ENV=test jest --watch",
+        "test-win": "set TS_NODE_FILES=true&&set NODE_ENV=test&&jest --watch",
         "gen-schema-types": "TS_NODE_FILES=true ts-node src/scripts/createTypes.ts",
         "gen-schema-types-win": "ts-node --files src/scripts/createTypes.ts"
     },
@@ -70,6 +72,6 @@
             "json",
             "node"
         ],
-        "globalSetup": "./src/testSetup/callSetup.js"
+        "globalSetup": "./src/testUtils/callSetup.js"
     }
 }

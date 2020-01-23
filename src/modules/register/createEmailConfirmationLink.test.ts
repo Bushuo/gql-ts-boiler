@@ -1,26 +1,30 @@
+import * as faker from 'faker';
 import * as Redis from 'ioredis';
+
 import fetch from 'node-fetch';
 
 import { createEmailConfirmationLink } from './createEmailConfirmationLink';
-import { createTypeormConnection } from './createTypeormConnection';
-import { User } from '../entity/User';
+import { User } from '../../entity/User';
 import { Connection } from 'typeorm';
+import { createTestConnection } from '../../testUtils/createTestConnection';
 
 let userId: string;
 const redis = new Redis();
 
 let conn: Connection;
 beforeAll(async () => {
-    conn = await createTypeormConnection();
+    conn = await createTestConnection();
     const user = await User.create({
-        email: 'confirmEmailLink@test.test',
-        password: 'confirmEmail'
+        email: faker.internet.email(),
+        password: faker.internet.password()
     }).save();
     userId = user.id;
 });
 
 afterAll(async () => {
-    if (conn) conn.close();
+    if (conn) {
+        conn.close();
+    }
 });
 
 test('link hit confirms user & clears redis link key', async () => {

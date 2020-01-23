@@ -1,14 +1,16 @@
+import * as faker from 'faker';
+
 import { Connection } from 'typeorm';
-import { createTypeormConnection } from '../../utils/createTypeormConnection';
 import { User } from '../../entity/User';
 import { TestClient } from '../../utils/testClient';
+import { createTestConnection } from '../../testUtils/createTestConnection';
 
-const email = 'logout@test.com';
-const password = 'akjbuaoe878324';
+const email = faker.internet.email();
+const password = faker.internet.password();
 let conn: Connection;
 let userId: string;
 beforeAll(async () => {
-    conn = await createTypeormConnection();
+    conn = await createTestConnection();
     const user = await User.create({
         email,
         password,
@@ -18,7 +20,9 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-    if (conn) conn.close();
+    if (conn) {
+        conn.close();
+    }
 });
 
 describe('logout', () => {

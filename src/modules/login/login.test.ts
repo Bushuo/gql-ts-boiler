@@ -1,15 +1,17 @@
-import { createTypeormConnection } from '../../utils/createTypeormConnection';
+import * as faker from 'faker';
+
 import { unconfirmedEmail, invalidLogin } from './errorMessages';
 import { User } from '../../entity/User';
 import { Connection } from 'typeorm';
 import { TestClient } from '../../utils/testClient';
+import { createTestConnection } from '../../testUtils/createTestConnection';
 
-const email = 'login@test.com';
-const password = 'asdbf&dvjb2123';
+const email = faker.internet.email();
+const password = faker.internet.password();
 
 let conn: Connection;
 beforeAll(async () => {
-    conn = await createTypeormConnection();
+    conn = await createTestConnection();
 });
 afterAll(async () => {
     conn.close();

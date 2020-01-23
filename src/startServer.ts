@@ -11,12 +11,19 @@ import { redis } from './redis';
 import { confirmEmail } from './routes/confirmEmail';
 import { genSchema } from './utils/generateSchema';
 import { REDIS_SESSION_PREFIX } from './constants';
+import { createTestConnection } from './testUtils/createTestConnection';
 
 // tslint:disable-next-line: variable-name
 const RedisStore = connectRedis(session);
 
 export const startServer = async () => {
-    await createTypeormConnection();
+    if (process.env.NODE_ENV === 'test') {
+        const p1 = createTestConnection(true);
+        const p2 = redis.flushall();
+        await Promise.all([p1, p2]);
+    } else {
+        await createTypeormConnection();
+    }
 
     const server = new GraphQLServer({
         schema: genSchema(),
