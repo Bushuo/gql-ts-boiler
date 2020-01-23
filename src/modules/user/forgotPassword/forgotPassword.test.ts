@@ -2,14 +2,14 @@ import * as Redis from 'ioredis';
 import * as faker from 'faker';
 
 import { Connection } from 'typeorm';
-import { User } from '../../entity/User';
-import { TestClient } from '../../utils/testClient';
-import { createForgotPasswordLink } from '../../utils/createForgotPasswordLink';
-import { forgotPasswordLockAccount } from '../../utils/forgotPasswordLockAccount';
+import { User } from '../../../entity/User';
+import { TestClient } from '../../../utils/testClient';
+import { createForgotPasswordLink } from '../../../utils/createForgotPasswordLink';
+import { forgotPasswordLockAccount } from '../../../utils/forgotPasswordLockAccount';
 import { forgotPasswordLockedError } from '../login/errorMessages';
 import { passwordNotLongEnough } from '../register/errorMessages';
 import { forgotPasswordExpiredKeyError } from './errorMessages';
-import { createTestConnection } from '../../testUtils/createTestConnection';
+import { createTestConnection } from '../../../testUtils/createTestConnection';
 
 const email = faker.internet.email();
 const password = faker.internet.password();

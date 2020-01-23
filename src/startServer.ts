@@ -9,7 +9,7 @@ import { GraphQLServer } from 'graphql-yoga';
 import { createTypeormConnection } from './utils/createTypeormConnection';
 import { redis } from './redis';
 import { confirmEmail } from './routes/confirmEmail';
-import { genSchema } from './utils/generateSchema';
+import { generateSchema } from './utils/generateSchema';
 import { REDIS_SESSION_PREFIX } from './constants';
 import { createTestConnection } from './testUtils/createTestConnection';
 
@@ -22,11 +22,16 @@ export const startServer = async () => {
         const p2 = redis.flushall();
         await Promise.all([p1, p2]);
     } else {
-        await createTypeormConnection();
+        try {
+            await createTypeormConnection();
+        } catch (error) {
+            console.log(error);
+            return;
+        }
     }
 
     const server = new GraphQLServer({
-        schema: genSchema(),
+        schema: generateSchema(),
         context: ({ request }) => ({
             redis,
             url: request.protocol + '://' + request.get('host'),

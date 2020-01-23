@@ -1,10 +1,10 @@
 import * as faker from 'faker';
 
 import { unconfirmedEmail, invalidLogin } from './errorMessages';
-import { User } from '../../entity/User';
+import { User } from '../../../entity/User';
 import { Connection } from 'typeorm';
-import { TestClient } from '../../utils/testClient';
-import { createTestConnection } from '../../testUtils/createTestConnection';
+import { TestClient } from '../../../utils/testClient';
+import { createTestConnection } from '../../../testUtils/createTestConnection';
 
 const email = faker.internet.email();
 const password = faker.internet.password();

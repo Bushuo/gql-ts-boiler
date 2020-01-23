@@ -4,9 +4,9 @@ import * as Redis from 'ioredis';
 import fetch from 'node-fetch';
 
 import { createEmailConfirmationLink } from './createEmailConfirmationLink';
-import { User } from '../../entity/User';
+import { User } from '../../../entity/User';
 import { Connection } from 'typeorm';
-import { createTestConnection } from '../../testUtils/createTestConnection';
+import { createTestConnection } from '../../../testUtils/createTestConnection';
 
 let userId: string;
 const redis = new Redis();
